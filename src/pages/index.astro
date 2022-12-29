@@ -14,13 +14,13 @@ import "@fontsource/roboto-condensed";
   </main>
 </Layout>
 
-<script>
+<script is:inline>
   window.addEventListener("load", async () => {
     await fetch("/.netlify/functions/get-wisdom")
       .then((res) => res.json())
       .then((json) => {
-        const quote = document.querySelector("#quote") as HTMLDivElement;
-        const source = document.querySelector("#source") as HTMLDivElement;
+        const quote = document.querySelector("#quote");
+        const source = document.querySelector("#source");
 
         quote.innerText = json.quote;
         quote.classList.add("loaded");
