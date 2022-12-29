@@ -23,9 +23,9 @@ import "@fontsource/roboto-condensed";
         const source = document.querySelector("#source");
 
         quote.innerText = json.quote;
-        quote.classList.add("loaded");
-
         source.innerText = json.source;
+
+        quote.classList.add("loaded");
         source.classList.add("loaded");
       });
   });
@@ -43,14 +43,13 @@ import "@fontsource/roboto-condensed";
     font-size: 3rem;
     opacity: 0;
     translate: 0rem 1rem;
-    /* scale: 0.98; */
     transition: translate 1.75s ease-in-out, opacity 1.75s ease-in-out;
+    transition-delay: 0.5s;
   }
 
   #quote.loaded {
     opacity: 1;
     translate: 0rem;
-    /* scale: 1; */
   }
 
   ul {
@@ -64,14 +63,12 @@ import "@fontsource/roboto-condensed";
     margin-top: 2rem;
     opacity: 0;
     translate: -1rem;
-    /* scale: 0.98; */
     transition: translate 1.75s ease-in-out, opacity 1.75s ease-in-out;
-    transition-delay: 2s;
+    transition-delay: 2.5s;
   }
 
   #source.loaded {
     opacity: 0.4;
     translate: 0rem;
-    /* scale: 1; */
   }
 </style>
