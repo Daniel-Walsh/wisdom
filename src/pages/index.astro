@@ -15,18 +15,20 @@ import "@fontsource/roboto-condensed";
 </Layout>
 
 <script>
-  await fetch("/.netlify/functions/get-wisdom")
-    .then((res) => res.json())
-    .then((json) => {
-      const quote = document.querySelector("#quote") as HTMLDivElement;
-      const source = document.querySelector("#source") as HTMLDivElement;
+  window.addEventListener("load", async () => {
+    await fetch("/.netlify/functions/get-wisdom")
+      .then((res) => res.json())
+      .then((json) => {
+        const quote = document.querySelector("#quote") as HTMLDivElement;
+        const source = document.querySelector("#source") as HTMLDivElement;
 
-      quote.innerText = json.quote;
-      quote.classList.add("loaded");
+        quote.innerText = json.quote;
+        quote.classList.add("loaded");
 
-      source.innerText = json.source;
-      source.classList.add("loaded");
-    });
+        source.innerText = json.source;
+        source.classList.add("loaded");
+      });
+  });
 </script>
 
 <style>
