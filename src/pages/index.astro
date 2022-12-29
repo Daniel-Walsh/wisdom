@@ -1,87 +1,75 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+
+import "@fontsource/homemade-apple";
+import "@fontsource/roboto-condensed";
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Wisdom">
   <main>
-    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
-    <p class="instructions">
-      To get started, open the directory <code>src/pages</code> in your project.<br
-      />
-      <strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-    </p>
-    <ul role="list" class="link-card-grid">
-      <Card
-        href="https://docs.astro.build/"
-        title="Documentation"
-        body="Learn how Astro works and explore the official API docs."
-      />
-      <Card
-        href="https://astro.build/integrations/"
-        title="Integrations"
-        body="Supercharge your project with new frameworks and libraries."
-      />
-      <Card
-        href="https://astro.build/themes/"
-        title="Themes"
-        body="Explore a galaxy of community-built starter themes."
-      />
-      <Card
-        href="https://astro.build/chat/"
-        title="Community"
-        body="Come say hi to our amazing Discord community. ❤️"
-      />
-    </ul>
     <div id="quote"></div>
+    <ul>
+      <li id="source"></li>
+    </ul>
   </main>
 </Layout>
 
 <script>
-  // fetch('')
+  await fetch("/.netlify/functions/get-wisdom")
+    .then((res) => res.json())
+    .then((json) => {
+      const quote = document.querySelector("#quote") as HTMLDivElement;
+      const source = document.querySelector("#source") as HTMLDivElement;
+
+      quote.innerText = json.quote;
+      quote.classList.add("loaded");
+
+      source.innerText = json.source;
+      source.classList.add("loaded");
+    });
 </script>
 
 <style>
   main {
-    margin: auto;
     padding: 1.5rem;
-    max-width: 60ch;
+    max-width: 700px;
   }
-  h1 {
+
+  #quote {
+    font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
     font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
+    opacity: 0;
+    translate: 0rem 1rem;
+    scale: 0.98;
+    transition: all 1.75s ease-in-out;
   }
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
+
+  #quote.loaded {
+    opacity: 1;
+    translate: 0rem;
+    scale: 1;
   }
-  .instructions {
-    line-height: 1.6;
-    margin: 1rem 0;
-    border: 1px solid rgba(var(--accent), 25%);
-    background-color: white;
-    padding: 1rem;
-    border-radius: 0.4rem;
+
+  ul {
+    list-style-type: "— ";
   }
-  .instructions code {
-    font-size: 0.875em;
-    font-weight: bold;
-    background: rgba(var(--accent), 12%);
-    color: rgb(var(--accent));
-    border-radius: 4px;
-    padding: 0.3em 0.45em;
+
+  #source {
+    font-family: "Homemade Apple", cursive;
+    font-size: 2rem;
+    line-height: 1.5;
+    margin-top: 2rem;
+    opacity: 0;
+    translate: -1rem;
+    scale: 0.98;
+    transition: all 1.75s ease-in-out;
+    transition-delay: 2s;
   }
-  .instructions strong {
-    color: rgb(var(--accent));
-  }
-  .link-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-    gap: 1rem;
-    padding: 0;
+
+  #source.loaded {
+    opacity: 0.4;
+    translate: 0rem;
+    scale: 1;
   }
 </style>
