@@ -19,14 +19,10 @@ import "@fontsource/roboto-condensed";
     await fetch("/.netlify/functions/get-wisdom")
       .then((res) => res.json())
       .then((json) => {
-        const quote = document.querySelector("#quote");
-        const source = document.querySelector("#source");
-
-        quote.innerText = json.quote;
-        source.innerText = json.source;
-
-        quote.classList.add("loaded");
-        source.classList.add("loaded");
+        const main = document.querySelector("main");
+        main.querySelector("#quote").innerText = json.quote;
+        main.querySelector("#source").innerText = json.source;
+        main.classList.add("loaded");
       });
   });
 </script>
@@ -47,7 +43,7 @@ import "@fontsource/roboto-condensed";
     transition-delay: 0.5s;
   }
 
-  #quote.loaded {
+  .loaded #quote {
     opacity: 1;
     translate: 0rem;
   }
@@ -67,7 +63,7 @@ import "@fontsource/roboto-condensed";
     transition-delay: 2.5s;
   }
 
-  #source.loaded {
+  .loaded #source {
     opacity: 0.4;
     translate: 0rem;
   }
